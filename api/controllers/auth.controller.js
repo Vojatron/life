@@ -29,20 +29,20 @@ function signup(req, res) {
 
       return res.status(200).json({ msg: "Gracias por registrarte" });
     })
-    // res.status(200).send("Está toh correcto")
     .catch((err) => res.status(403).json({ error: err.message }));
 }
 
 function login(req, res) {
+  console.log(req.body.email)
   UserModel.findOne({ where: { email: req.body.email } })
     .then((user) => {
-      if (!user) return res.json({ error: "email incorrecto" });
+      if (!user) return res.status(401).json({ error: "Email o contraseña incorrecto" });
       if (user.access === false)
-        return res.json({ error: "No estás autorizado" });
+        return res.status(401).json({ error: "No estás autorizado" });
 
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (!result) {
-          return res.json({ error: `wrong password for ${req.body.email}` });
+          return res.json({ error: `Contraseña incorrecta para el email ${req.body.email}` });
         }
         const user_data = {
           userName: user.userName,
