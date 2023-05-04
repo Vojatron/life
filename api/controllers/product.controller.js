@@ -14,16 +14,6 @@ async function getAllProducts(req, res) {
   }
 }
 
-// async function getProductsByCategoryId(req,res) {
-//     try {
-//       const category = await Category.findByPk(req.param.categoryId);
-//       const products = await category.getProducts();
-//       return res.status(200).json(products);
-//     } catch (error) {
-//         return res.status(500).send(error.message);
-//     }
-//   }
-
 async function getProductsByCategoryId(req, res) {
   try {
     
